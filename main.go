@@ -18,24 +18,17 @@ var albums = []album{
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
+// выдает список альбомов
+// gin.Context валидирует json
+// Context IndentedJSON переводит структуру в json и добавляет в ответ
 func getAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
-//func postAlbums(c *gin.Context) {
-//	var newAlbum album
-//
-//	if err := c.BindJSON(&newAlbum); err != nil {
-//		return
-//	}
-//
-//	albums = append(albums, newAlbum)
-//	c.IndentedJSON(http.StatusCreated, newAlbum)
-//}
-
 func main() {
-	router := gin.Default()
-	router.GET("/albums", getAlbums)
+	router := gin.Default()          //gin.Default() поднимает роутер
+	router.GET("/albums", getAlbums) //получает http метод и путь /albums через хэндлер
 
-	router.Run("localhost:8081")
+	router.Run("localhost:8081") //старт сервера
 }
+
