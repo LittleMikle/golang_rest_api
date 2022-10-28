@@ -25,13 +25,16 @@ func getAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
+// добавляет из json
 func postAlbums(c *gin.Context) {
 	var newAlbum album
 
+	//вызывает BindJSON для получения json в newAlbum
 	if err := c.BindJSON(&newAlbum); err != nil {
 		return
 	}
 
+	//добавляет новый альбом в слайс к существующим
 	albums = append(albums, newAlbum)
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
@@ -43,4 +46,3 @@ func main() {
 
 	router.Run("localhost:8081") //старт сервера
 }
-
