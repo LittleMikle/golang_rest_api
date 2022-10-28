@@ -54,8 +54,9 @@ func getAlbumByID(c *gin.Context) {
 func main() {
 	router := gin.Default()          //gin.Default() поднимает роутер
 	router.GET("/albums", getAlbums) //получает http метод и путь /albums через хэндлер
-	router.GET("/albums/:id", getAlbums)
+	router.GET("/albums/:id", getAlbumByID)
 	router.POST("/albums", postAlbums)
+	//router.DELETE("/albums/:id/del")
 
 	router.Run("localhost:8081") //старт сервера
 }
