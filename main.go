@@ -42,34 +42,21 @@ func postAlbums(c *gin.Context) {
 func getAlbumByID(c *gin.Context) {
 	id := c.Param("id")
 
+	//поиск в цикле по ID
 	for _, a := range albums {
 		if a.ID == id {
 			c.IndentedJSON(http.StatusOK, a)
 			return
 		}
 	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"}) //если не найден
 }
 
-//func delAlbumByID(c *gin.Context) {
-//	id := c.Param("id")
-//
-//	for _, a := range albums {
-//		if a.ID == id {
-//			c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album deleted"})
-//			return
-//		}
-//	}
-//	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found, cant delete"})
-//
-//}
-
 func main() {
-	router := gin.Default()          //gin.Default() поднимает роутер
-	router.GET("/albums", getAlbums) //получает http метод и путь /albums через хэндлер
-	router.GET("/albums/:id", getAlbumByID)
-	router.POST("/albums", postAlbums)
-	//router.DELETE("/albums/del/:id", delAlbumByID)
+	router := gin.Default()                 //gin.Default() поднимает роутер
+	router.GET("/albums", getAlbums)        //выдает все альбомы
+	router.GET("/albums/:id", getAlbumByID) //выдает альбом по ID
+	router.POST("/albums", postAlbums)      //добавление альбома
 
 	router.Run("localhost:8081") //старт сервера
 }
